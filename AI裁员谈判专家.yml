@@ -1,0 +1,1866 @@
+app:
+  description: ''
+  icon: 88dbbe7e-e8f0-41b8-9420-92af6acd82c5
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: AI裁员谈判专家
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.43@18a2f3c3559d752b178bb4efd6b736dec8dd13c2d963fd6aa5b0a350e24e6826
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables:
+  - description: 风险标签（竞业协议、怀孕期等
+    id: 5a971930-5adf-4004-81dd-f8c2fd41aca6
+    name: risk_tags
+    selector:
+    - conversation
+    - risk_tags
+    value: ''
+    value_type: string
+  - description: 当前提供的条件
+    id: be4edda8-efac-4567-a81a-c84f3155b3aa
+    name: current_offer
+    selector:
+    - conversation
+    - current_offer
+    value: ''
+    value_type: string
+  - description: 谈判轮次
+    id: c2c6b847-f1a5-438b-9a23-e4e1dcf9c37b
+    name: negotiation_stage
+    selector:
+    - conversation
+    - negotiation_stage
+    value: ''
+    value_type: string
+  - description: 岗位、入职日期、薪资等
+    id: 3ad84d83-4b03-4d83-a56c-33dd938c7de6
+    name: user_basic_info
+    selector:
+    - conversation
+    - user_basic_info
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - document
+      - audio
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1770395174314-source-llm-target
+      source: '1770395174314'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1770396955798-source-1770476260931-target
+      source: '1770396955798'
+      sourceHandle: source
+      target: '1770476260931'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1770476260931-source-1770475432240-target
+      source: '1770476260931'
+      sourceHandle: source
+      target: '1770475432240'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: iteration
+      id: 1770394485951-source-1770479625637-target
+      source: '1770394485951'
+      sourceHandle: source
+      target: '1770479625637'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: iteration-start
+        targetType: code
+      id: 1770479625637start-source-1770479766283-target
+      source: 1770479625637start
+      sourceHandle: source
+      target: '1770479766283'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: code
+        targetType: if-else
+      id: 1770479766283-source-1770480323551-target
+      source: '1770479766283'
+      sourceHandle: source
+      target: '1770480323551'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1770480323551-7de5edb5-e6e5-4f1c-a2e2-96ea56441646-1770480768135-target
+      source: '1770480323551'
+      sourceHandle: 7de5edb5-e6e5-4f1c-a2e2-96ea56441646
+      target: '1770480768135'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: if-else
+        targetType: llm
+      id: 1770480323551-70211004-353d-4a2c-96b3-d3bc0ba2c2c7-1770480915481-target
+      source: '1770480323551'
+      sourceHandle: 70211004-353d-4a2c-96b3-d3bc0ba2c2c7
+      target: '1770480915481'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: document-extractor
+        targetType: code
+      id: 1770480768135-source-1770481415347-target
+      source: '1770480768135'
+      sourceHandle: source
+      target: '1770481415347'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: llm
+        targetType: code
+      id: 1770480915481-source-1770481415347-target
+      source: '1770480915481'
+      sourceHandle: source
+      target: '1770481415347'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1770479625637-source-1770482159161-target
+      source: '1770479625637'
+      sourceHandle: source
+      target: '1770482159161'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1770394485951-source-1770482159161-target
+      source: '1770394485951'
+      sourceHandle: source
+      target: '1770482159161'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: question-classifier
+      id: 1770482159161-source-1770477759866-target
+      source: '1770482159161'
+      sourceHandle: source
+      target: '1770477759866'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: if-else
+        targetType: code
+      id: 1770480323551-false-1770481415347-target
+      source: '1770480323551'
+      sourceHandle: 'false'
+      target: '1770481415347'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: if-else
+        targetType: http-request
+      id: 1770480323551-true-1770710872678-target
+      source: '1770480323551'
+      sourceHandle: 'true'
+      target: '1770710872678'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: http-request
+        targetType: code
+      id: 1770710872678-source-1770481415347-target
+      source: '1770710872678'
+      sourceHandle: source
+      target: '1770481415347'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: knowledge-retrieval
+      id: 1770477759866-1770725620420-1770395174314-target
+      source: '1770477759866'
+      sourceHandle: '1770725620420'
+      target: '1770395174314'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1770477759866-2-1770726862627-target
+      source: '1770477759866'
+      sourceHandle: '2'
+      target: '1770726862627'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1770477759866-2-1770396955798-target
+      source: '1770477759866'
+      sourceHandle: '2'
+      target: '1770396955798'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1770475432240-source-1770725600266-target
+      source: '1770475432240'
+      sourceHandle: source
+      target: '1770725600266'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1770477759866-2-1770725600266-target
+      source: '1770477759866'
+      sourceHandle: '2'
+      target: '1770725600266'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1770725600266-source-answer-target
+      source: '1770725600266'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1770477759866-1-17707292770790-target
+      source: '1770477759866'
+      sourceHandle: '1'
+      target: '17707292770790'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 17707292770790-source-17707292827030-target
+      source: '17707292770790'
+      sourceHandle: source
+      target: '17707292827030'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1770729490713-source-answer-target
+      source: '1770729490713'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1770477759866-1770813001488-1770813524491-target
+      source: '1770477759866'
+      sourceHandle: '1770813001488'
+      target: '1770813524491'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1770813524491-source-answer-target
+      source: '1770813524491'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1770726862627-source-1770822069273-target
+      source: '1770726862627'
+      sourceHandle: source
+      target: '1770822069273'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1770822069273-source-1770725600266-target
+      source: '1770822069273'
+      sourceHandle: source
+      target: '1770725600266'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        sourceType: code
+        targetType: code
+      id: 1770479766283-source-1770481415347-target
+      source: '1770479766283'
+      sourceHandle: source
+      target: '1770481415347'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 17707292827030-source-17719455442120-target
+      source: '17707292827030'
+      sourceHandle: source
+      target: '17719455442120'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 17719455442120-source-1770729490713-target
+      source: '17719455442120'
+      sourceHandle: source
+      target: '1770729490713'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 73
+      id: '1770394485951'
+      position:
+        x: 0
+        y: 649
+      positionAbsolute:
+        x: 0
+        y: 649
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1770395174314'
+          - result
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Pro/deepseek-ai/DeepSeek-V3.2
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 1ffcfa46-4d56-4879-a5a9-ffb9e823461d
+          role: system
+          text: "# Role\n你是一位拥有10年经验的中国劳动法专家。你的回答风格**严谨、客观、引用精确**，同时通俗易懂。\n\n# Task\n\
+            请结合【参考资料】中的法律条款，解答用户的疑问。\n\n# Context Data (参考资料)\n{{#context#}}\n\n\n\
+            # Thinking Logic (请在内心执行，不要输出)\n1.  **检查资料**：\n    * 如果有内容：提取核心法条和解释。\n\
+            \    * 如果为空/无关：**忽略它**，直接调用你的内部法律知识库回答（你是专家，不需要每次都翻书）。\n2.  **构建回答**：\n\
+            \    * **禁止**使用：“根据上下文”、“检索结果显示”、“资料中提到”等词汇。用户不关心资料哪来的，只关心法条是什么。\n   \
+            \ * **正确话术**：“根据《劳动合同法》第XX条...”、“在司法实践中，通常认定...”\n    * **格式化**：如果有多个要点，使用\
+            \ Bullet points。\n\n# Output Format\n1.  **核心结论**：直接回答用户的问题（是/否/定义）。\n\
+            2.  **法律依据**：引用具体的法律条款名称（如《劳动合同法》第四十七条）。\n3.  **专家提示**：(可选) 如果这个问题有常见的坑，给出一句简短的避坑指南。\n\
+            \n# User Question\n{{#sys.query#}}"
+        selected: false
+        title: 咨询
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: llm
+      position:
+        x: 3402
+        y: 288
+      positionAbsolute:
+        x: 3402
+        y: 288
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1770729490713.text#}}{{#1770725600266.text#}}{{#llm.text#}}{{#1770813524491.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 140
+      id: answer
+      position:
+        x: 4126
+        y: 755
+      positionAbsolute:
+        x: 4126
+        y: 755
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - z6DsezPG+VAdxw1MfAlXeil8ON5roO4F28nH+x+WijEkKCoDrmfMCGJrbLj7+U/r
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: netease-youdao/bce-reranker-base_v1
+            provider: langgenius/siliconflow/siliconflow
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1770394485951'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1770395174314'
+      position:
+        x: 2698
+        y: 194
+      positionAbsolute:
+        x: 2698
+        y: 194
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.3
+            top_p: 0.95
+          mode: chat
+          name: Pro/deepseek-ai/DeepSeek-V3.2
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 41fed568-b7c2-472c-89bd-91b081604eaa
+          role: system
+          text: "### 角色定义\n你是一名资深劳动法谈判专家。你的核心任务是维护用户的**“谈判状态档案”**。\n请根据用户的最新输入{{#1770482159161.final_input_for_classifier#}}，提取关键信息。\n\
+            \n### 提取目标\n请输出一份严格的 JSON 数据。\n**注意：** 对于用户本次未提及的字段，请根据上下文填 `null`，不要臆测。\n\
+            \n### 字段定义\n\n#### 1. 用户背景 (User Profile) - 保持原有\n* `city`: [枚举] 标准化城市名。\n\
+            * `company_type`: [枚举] 国企/民企/外厂...\n* `job_title`: [文本] 岗位。\n* `entry_date`:\
+            \ [日期] 入职日。\n* `salary`: {\n    `base`: [数字] 底薪,\n    `avg_12m`: [数字]\
+            \ 离职前12个月平均工资(赔偿基数)\n}\n\n#### 2. 谈判进度 (Negotiation Status) - **新增**\n\
+            * `stage`: [枚举] 必须从以下选择：\n    - \"未开始\": 用户刚收到风声，还没谈。\n    - \"首轮通知\"\
+            : HR第一次找谈话，给初步方案。\n    - \"拉锯期\": 已经谈过一轮，双方有分歧。\n    - \"方案核对\": 正在确认协议细节。\n\
+            \    - \"即将签字\": 达成一致，准备离职。\n\n#### 3. 公司当前方案 (Company Offer) - **核心新增!!**\n\
+            * `severance_months`: [数字/文本] 赔偿月数 (如: 1, 1.5, 2N)。\n* `severance_base`:\
+            \ [数字] 赔偿计算基数 (公司承认的月薪)。\n* `total_compensation`: [数字] 赔偿总金额 (税前)。\n*\
+            \ `last_working_day`: [日期] 最后工作日 (Last Day)。\n* `salary_settlement`: [文本]\
+            \ 工资结算截止日 (如: \"结算到本月31号\").\n* `bonus_treatment`: [文本] 年终奖处理方案 (如: \"\
+            按比例折算\", \"全额发放\", \"无\").\n* `social_security_end`: [日期/文本] 社保公积金交到哪个月\
+            \ (如: \"2024-03\").\n* `separation_reason`: [枚举] 离职证明怎么写 (非常关键):\n   \
+            \ - \"协商一致\" (最佳)\n    - \"个人原因\" (绝对不能签!)\n    - \"业务调整\"\n    - \"严重违纪\"\
+            \n\n#### 4. 风险标记\n* `risk_tags`: [列表] 如 [\"逼签个人原因\", \"社保断缴风险\", \"年终奖赖账\"\
+            ]。\n\n### 输出示例\n```json\n{\n  \"user_profile\": {\n    \"city\": \"深圳\"\
+            ,\n    \"job_title\": \"产品经理\",\n    \"salary\": {\"base\": 25000}\n \
+            \ },\n  \"negotiation_status\": {\n    \"stage\": \"首轮通知\"\n  },\n  \"\
+            company_offer\": {\n    \"severance_months\": \"N+1\",\n    \"severance_base\"\
+            : 25000,\n    \"last_working_day\": \"2024-03-31\",\n    \"bonus_treatment\"\
+            : \"公司说没有年终奖\",\n    \"separation_reason\": \"个人原因\",\n    \"social_security_end\"\
+            : \"2024-03\"\n  },\n  \"risk_tags\": [\"逼签个人原因\", \"放弃年终奖\"]\n}\n\n重要约束：请只输出纯\
+            \ JSON 文本，不要使用 markdown 代码块（即不要出现 ```json 和 ```），不要输出任何其他解释性文字。\n"
+        selected: false
+        title: 数据清洗
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1770396955798'
+      position:
+        x: 2698
+        y: 532
+      positionAbsolute:
+        x: 2698
+        y: 532
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1770476260931'
+          - out_profile
+          variable_selector:
+          - conversation
+          - user_basic_info
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1770476260931'
+          - out_status
+          variable_selector:
+          - conversation
+          - negotiation_stage
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1770476260931'
+          - out_offer
+          variable_selector:
+          - conversation
+          - current_offer
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1770476260931'
+          - out_risks
+          variable_selector:
+          - conversation
+          - risk_tags
+          write_mode: over-write
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 162
+      id: '1770475432240'
+      position:
+        x: 3402
+        y: 495
+      positionAbsolute:
+        x: 3402
+        y: 495
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\ndef merge_dict(old_str, new_data):\n    \"\"\"\n   \
+          \ 通用字典合并逻辑：\n    1. 解析旧字符串为字典。\n    2. 如果新数据有值，逐个字段覆盖旧数据。\n    3. 如果新数据为空，保留旧数据。\n\
+          \    \"\"\"\n    try:\n        old_data = json.loads(old_str) if old_str\
+          \ else {}\n    except:\n        old_data = {}\n    \n    # 如果 LLM 这次没提取到这块内容，直接返回旧的\n\
+          \    if not new_data:\n        return old_data\n\n    # 逐个字段更新 (增量更新)\n\
+          \    for key, value in new_data.items():\n        # 只有当新值不为 None 且不为空字符串时，才覆盖\n\
+          \        if value is not None and value != \"\":\n            old_data[key]\
+          \ = value\n            \n    return old_data\n\ndef merge_list(old_str,\
+          \ new_list):\n    \"\"\"\n    风险标签合并逻辑 (追加 + 去重)\n    \"\"\"\n    try:\n\
+          \        old_list = json.loads(old_str) if old_str else []\n    except:\n\
+          \        old_list = []\n        \n    if not new_list:\n        return old_list\n\
+          \    \n    # 合并两个列表并去重\n    combined = old_list + new_list\n    # 为了保持 JSON\
+          \ 序列化友好，去重后转回 list\n    return list(set(combined))\n\ndef main(input_json,\
+          \ old_profile, old_status, old_offer, old_risks):\n    \"\"\"\n    输入参数名必须和你\
+          \ Dify 界面左侧定义的【输入变量】严格一致！\n    \"\"\"\n    try:\n        # 1. 预处理：清洗 LLM\
+          \ 输出可能带有的 Markdown 符号\n        clean_json = input_json.replace(\"```json\"\
+          , \"\").replace(\"```\", \"\").strip()\n        \n        # 尝试解析 LLM 的输出\n\
+          \        try:\n            new_data_pack = json.loads(clean_json)\n    \
+          \    except:\n            # 如果解析失败，说明 LLM 输出格式乱了，直接返回旧数据防崩\n           \
+          \ new_data_pack = {}\n\n        # 2. 执行合并逻辑 (对应 Prompt 里的 JSON Key)\n  \
+          \      \n        # A. 合并用户档案 (user_profile)\n        final_profile = merge_dict(old_profile,\
+          \ new_data_pack.get(\"user_profile\", {}))\n        \n        # B. 合并谈判状态\
+          \ (negotiation_status)\n        final_status = merge_dict(old_status, new_data_pack.get(\"\
+          negotiation_status\", {}))\n        \n        # C. 合并公司 Offer (company_offer)\n\
+          \        final_offer = merge_dict(old_offer, new_data_pack.get(\"company_offer\"\
+          , {}))\n        \n        # D. 合并风险标签 (risk_tags)\n        final_risks =\
+          \ merge_list(old_risks, new_data_pack.get(\"risk_tags\", []))\n\n      \
+          \  # 3. 输出结果 (准备写入变量)\n        return {\n            \"out_profile\": json.dumps(final_profile,\
+          \ ensure_ascii=False),\n            \"out_status\": json.dumps(final_status,\
+          \ ensure_ascii=False),\n            \"out_offer\": json.dumps(final_offer,\
+          \ ensure_ascii=False),\n            \"out_risks\": json.dumps(final_risks,\
+          \ ensure_ascii=False)\n        }\n        \n    except Exception as e:\n\
+          \        # 4. 终极兜底：如果有任何代码错误，原样返回旧数据，确保记忆不丢失\n        return {\n       \
+          \     \"out_profile\": old_profile or \"{}\",\n            \"out_status\"\
+          : old_status or \"{}\",\n            \"out_offer\": old_offer or \"{}\"\
+          ,\n            \"out_risks\": old_risks or \"[]\"\n        }"
+        code_language: python3
+        outputs:
+          out_offer:
+            children: null
+            type: string
+          out_profile:
+            children: null
+            type: string
+          out_risks:
+            children: null
+            type: string
+          out_status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - '1770396955798'
+          - text
+          value_type: string
+          variable: input_json
+        - value_selector:
+          - conversation
+          - user_basic_info
+          value_type: string
+          variable: old_profile
+        - value_selector:
+          - conversation
+          - negotiation_stage
+          value_type: string
+          variable: old_status
+        - value_selector:
+          - conversation
+          - current_offer
+          value_type: string
+          variable: old_offer
+        - value_selector:
+          - conversation
+          - risk_tags
+          value_type: string
+          variable: old_risks
+      height: 52
+      id: '1770476260931'
+      position:
+        x: 3040
+        y: 550
+      positionAbsolute:
+        x: 3040
+        y: 550
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        classes:
+        - id: '1'
+          name: '【分类判据全局说明】
+
+            分类器必须解析变量 {{final_input_for_classifier}} 中的以下标签：
+
+            <FILE_INFO>：附件清单（文件名+类型）。最高优先级信号。
+
+            <USER_QUERY>：用户原始提问。反映即时动作。
+
+            <MEGA_CONTEXT>：附件文本详情。提供博弈细节。
+
+
+            分类 1：谈判准备与筹码盘点 (negotiation_preparation)
+
+            核心逻辑：“对内审计”。用户处于数据盘点阶段，尚未与 HR 正面交锋。
+
+            变量判定规则：
+
+            禁区拦截：若 <FILE_INFO> 中出现 (audio) 或文件名含“录音”，严禁归入此类。
+
+            数据信号：<USER_QUERY> 或 <MEGA_CONTEXT> 中出现月薪、年终奖、入职日期、未休年假等静态数据。
+
+            动作偏好：要求计算 $N$、$N+1$ 或 $2N$ 的具体赔偿金，或评估合同/打卡记录等证据。
+
+            定义指令：当用户提供、更新或补充自身客观信息时；或要求基于这些数据计算具体的赔偿金额时；或询问“我筹码够吗”、“证据怎么准备”等战前静态评估问题。
+
+            关键示例：
+
+            <USER_QUERY>: “入职 3 年，月薪 25k，帮我算算赔偿。”
+
+            <FILE_INFO>: “工资单截图.jpg (image)” + <USER_QUERY>: “看看这个能不能证明我的真实收入？”'
+        - id: '2'
+          name: '分类 2：谈判实战与博弈回击 (negotiation_battle)
+
+            核心逻辑：“对外对线”。双方已产生言语、行为或文书上的拉扯。
+
+            变量判定规则 (最高优先级)：
+
+            强信号拦截：一旦 <FILE_INFO> 中检测到 (audio) 或文件名包含“录音/谈话”，无条件归入此类。
+
+            文本对线信号：<MEGA_CONTEXT> 中出现对话记录或公司正式下达的攻击性通知（如《解除劳动合同通知书》、PIP、调岗令）。
+
+            话术策略：<USER_QUERY> 询问“怎么回怼”、“怎么镇住HR”、“开场白怎么说”。
+
+            定义指令：当用户输入 HR 的具体反馈、威胁话术、面谈录音或书面通知时；或用户询问针对特定僵局的具体反击话术、心理战术时。你需要充当军师给出即时对线策略。
+
+            关键示例：
+
+            <FILE_INFO>: “和HR面谈录音.m4a (audio)”
+
+            <MEGA_CONTEXT>: (包含“HR：公司没钱，你自己主动辞职”) + <USER_QUERY>: “怎么怼回去？”
+
+            <USER_QUERY>: “HR 威胁我要背调搞臭我，现在僵住了怎么办？”'
+        - id: '1770725620420'
+          name: '分类 3：通用法律咨询 (legal_concept_inquiry)
+
+            核心逻辑：“知识检索”。用户处于“查字典”模式，寻找客观法律常识。
+
+            变量判定规则：
+
+            去个人化：<USER_QUERY> 为通用疑问句，不涉及具体的薪资或具体的 HR 话术。
+
+            低关联性：<MEGA_CONTEXT> 内容为空，或仅为泛泛的法条咨询，不涉及具体公司或个人纠纷。
+
+            定义指令：当用户询问法律法规条款、专业名词解释、通用办事流程（如仲裁怎么申请）、维权依据时。核心特征是：用户想知道“法律是怎么规定的”，而非要求制定博弈策略。
+
+            关键示例：
+
+            <USER_QUERY>: “什么是代通知金？发放标准是什么？”
+
+            <USER_QUERY>: “劳动仲裁流程一般走多久？”'
+        - id: '1770813001488'
+          name: '分类 4：身份引导与闲聊 (user_guide_and_chitchat)
+
+            核心逻辑：“前台接待”。负责 Agent 功能宣导、打招呼及情绪安抚。
+
+            变量判定规则 (最高权重防御)：
+
+            元询问：<USER_QUERY> 指向“你”、“Agent”、“你能干什么”、“怎么分析录音”。
+
+            情绪信号：纯粹的打招呼、宣泄焦虑或感谢。
+
+            定义指令：当用户询问你的身份、功能介绍、使用方法，或进行简单的打招呼、无具体业务的情绪宣泄时。解释权规则：只要用户是在问功能的“定义”而非要求执行任务，均归入此类。
+
+            关键示例：
+
+            <USER_QUERY>: “你是谁？”
+
+            <USER_QUERY>: “录音分析功能怎么用？”
+
+            <USER_QUERY>: “心情好焦虑，怕谈崩了。”'
+        instructions: ''
+        model:
+          completion_params:
+            max_tokens: 1024
+            temperature: 0
+          mode: chat
+          name: Qwen/Qwen2.5-72B-Instruct
+          provider: langgenius/siliconflow/siliconflow
+        query_variable_selector:
+        - '1770482159161'
+        - final_input_for_classifier
+        selected: false
+        title: 问题分类器
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 246
+      id: '1770477759866'
+      position:
+        x: 2336
+        y: 566
+      positionAbsolute:
+        x: 2336
+        y: 566
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 648
+        is_parallel: true
+        iterator_input_type: array[file]
+        iterator_selector:
+        - sys
+        - files
+        output_selector:
+        - '1770481415347'
+        - result
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1770479625637start
+        title: 迭代
+        type: iteration
+        width: 1512
+      height: 648
+      id: '1770479625637'
+      position:
+        x: 362
+        y: 0
+      positionAbsolute:
+        x: 362
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 1512
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1770479625637start
+      parentId: '1770479625637'
+      position:
+        x: 60
+        y: 62
+      positionAbsolute:
+        x: 422
+        y: 62
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        code: "def main(file_name: str, ext_str: str):\n    # 预处理文件名和后缀\n    name\
+          \ = file_name if file_name else \"未知文件\"\n    safe_ext = ext_str.strip().lower().replace('.',\
+          \ '')\n    \n    # 定义分类映射\n    type_map = {\n        'audio': ['mp3', 'm4a',\
+          \ 'wav', 'amr', 'mpga', 'flac', 'ogg'],\n        'image': ['jpg', 'jpeg',\
+          \ 'png', 'gif', 'webp', 'svg'],\n        'doc': ['txt', 'md', 'pdf', 'docx',\
+          \ 'xlsx', 'csv', 'eml', 'pptx']\n    }\n    \n    # 识别当前文件所属大类\n    current_type\
+          \ = \"unknown\"\n    for category, exts in type_map.items():\n        if\
+          \ safe_ext in exts:\n            current_type = category\n            break\n\
+          \            \n    # 返回给分类器用的增强文本\n    # 例如：\"录音_20250806.m4a (audio)\"\n\
+          \    file_info = f\"{name} ({current_type})\"\n    \n    return {\n    \
+          \    \"file_type\": current_type,\n        \"file_description\": file_info\n\
+          \    }"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        outputs:
+          file_description:
+            children: null
+            type: string
+          file_type:
+            children: null
+            type: string
+        selected: false
+        title: 文件类型判断
+        type: code
+        variables:
+        - value_selector:
+          - '1770479625637'
+          - item
+          - extension
+          value_type: file
+          variable: ext_str
+        - value_selector:
+          - '1770479625637'
+          - item
+          - name
+          value_type: file
+          variable: file_name
+      height: 52
+      id: '1770479766283'
+      parentId: '1770479625637'
+      position:
+        x: 184
+        y: 60
+      positionAbsolute:
+        x: 546
+        y: 60
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: c4c6896f-94a6-4c46-a738-7a94978f9ecb
+            value: audio
+            varType: string
+            variable_selector:
+            - '1770479766283'
+            - file_type
+          id: 'true'
+          logical_operator: and
+        - case_id: 7de5edb5-e6e5-4f1c-a2e2-96ea56441646
+          conditions:
+          - comparison_operator: is
+            id: 5a5700ba-7794-4283-9528-2f1481751fc9
+            value: doc
+            varType: string
+            variable_selector:
+            - '1770479766283'
+            - file_type
+          id: 7de5edb5-e6e5-4f1c-a2e2-96ea56441646
+          logical_operator: and
+        - case_id: 70211004-353d-4a2c-96b3-d3bc0ba2c2c7
+          conditions:
+          - comparison_operator: is
+            id: 43646241-4161-4fe1-974b-9499cf7f5ae0
+            value: image
+            varType: string
+            variable_selector:
+            - '1770479766283'
+            - file_type
+          id: 70211004-353d-4a2c-96b3-d3bc0ba2c2c7
+          logical_operator: and
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 220
+      id: '1770480323551'
+      parentId: '1770479625637'
+      position:
+        x: 526
+        y: 238
+      positionAbsolute:
+        x: 888
+        y: 238
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        is_array_file: false
+        iteration_id: '1770479625637'
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - '1770479625637'
+        - item
+      height: 104
+      id: '1770480768135'
+      parentId: '1770479625637'
+      position:
+        x: 868
+        y: 118
+      positionAbsolute:
+        x: 1230
+        y: 118
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Qwen/Qwen2.5-VL-72B-Instruct
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 9668b908-2367-40a6-a7ef-848bb5899ee1
+          role: system
+          text: '你是一个OCR助手。请提取图片中的所有文字内容。
+
+
+            如果是聊天记录截图，请务必按以下格式还原对话：
+
+            【发送方】：内容
+
+
+            如果是文档拍照，请按原段落结构输出。
+
+            只输出提取的内容，不要加任何开场白或分析。'
+        - id: ded3e51c-d476-40f3-b130-866700acc1e1
+          role: user
+          text: 请开始提取图片中的文字。
+        selected: false
+        title: 提取文字
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1770479625637'
+            - item
+          enabled: true
+      height: 88
+      id: '1770480915481'
+      parentId: '1770479625637'
+      position:
+        x: 868
+        y: 282
+      positionAbsolute:
+        x: 1230
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "def main(doc_text, audio_text, img_text, file_description):\n    #\
+          \ 初始化内容\n    content = \"未提取到有效文本内容\"\n    \n    # 按照优先级提取非空内容，必须处理 None\
+          \ 情况\n    if doc_text is not None and len(str(doc_text).strip()) > 0:\n\
+          \        content = str(doc_text)\n    elif audio_text is not None and len(str(audio_text).strip())\
+          \ > 0:\n        content = str(audio_text)\n    elif img_text is not None\
+          \ and len(str(img_text).strip()) > 0:\n        content = str(img_text)\n\
+          \    \n    # 确保返回的字典 Key 叫 \"result\"，匹配你的节点设置\n    return {\n        \"\
+          result\": {\n            \"individual_summary\": file_description,\n   \
+          \         \"individual_content\": content\n        }\n    }"
+        code_language: python3
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        outputs:
+          result:
+            children: null
+            type: object
+        selected: false
+        title: 汇聚节点
+        type: code
+        variables:
+        - value_selector:
+          - '1770480768135'
+          - text
+          value_type: array[string]
+          variable: doc_text
+        - value_selector:
+          - '1770710872678'
+          - body
+          value_type: string
+          variable: audio_text
+        - value_selector:
+          - '1770480915481'
+          - text
+          value_type: string
+          variable: img_text
+        - value_selector:
+          - '1770479766283'
+          - file_description
+          value_type: string
+          variable: file_description
+      height: 52
+      id: '1770481415347'
+      parentId: '1770479625637'
+      position:
+        x: 1210
+        y: 300
+      positionAbsolute:
+        x: 1572
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "def main(iteration_data: list, user_text: str):\n    summaries = []\n\
+          \    full_details = []\n    \n    # 1. 解析迭代数据\n    for item in iteration_data:\n\
+          \        s = item.get(\"individual_summary\", \"未知文件\")\n        c = item.get(\"\
+          individual_content\", \"\")\n        summaries.append(f\"- {s}\")\n    \
+          \    full_details.append(f\"【文件: {s}】\\n内容:\\n{c}\")\n    \n    file_info\
+          \ = \"\\n\".join(summaries) if summaries else \"无附件\"\n    mega_content\
+          \ = \"\\n\\n\".join(full_details) if full_details else \"无内容数据\"\n    \n\
+          \    # 2. 构建结构化单一变量（使用 XML 标签方便 AI 准确定位）\n    # 将此变量命名为 final_input_for_classifier\n\
+          \    structured_input = f\"\"\"\n<FILE_INFO>\n{file_info}\n</FILE_INFO>\n\
+          \n<USER_QUERY>\n{user_text}\n</USER_QUERY>\n\n<MEGA_CONTEXT>\n{mega_content}\n\
+          </MEGA_CONTEXT>\n\"\"\"\n    \n    return {\n        \"final_input_for_classifier\"\
+          : structured_input\n    }"
+        code_language: python3
+        outputs:
+          final_input_for_classifier:
+            children: null
+            type: string
+        selected: false
+        title: 汇聚节点2
+        type: code
+        variables:
+        - value_selector:
+          - '1770479625637'
+          - output
+          value_type: array[string]
+          variable: iteration_data
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: user_text
+      height: 52
+      id: '1770482159161'
+      position:
+        x: 1994
+        y: 663
+      positionAbsolute:
+        x: 1994
+        y: 663
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - file:
+            - '1770479625637'
+            - item
+            id: key-value-116
+            key: file
+            type: file
+            value: ''
+          - id: key-value-198
+            key: model
+            type: text
+            value: FunAudioLLM/SenseVoiceSmall
+          type: form-data
+        headers: Authorization:Bearer sk-bpswmtzbbqgaspktzyronxsthxynfqigjejaamnlgcflchhd
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1770479625637'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          connect: 10
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+          read: 120
+          write: 120
+        title: HTTP 请求
+        type: http-request
+        url: https://api.siliconflow.cn/v1/audio/transcriptions
+        variables: []
+      height: 137
+      id: '1770710872678'
+      parentId: '1770479625637'
+      position:
+        x: 868
+        y: 451
+      positionAbsolute:
+        x: 1230
+        y: 451
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Pro/moonshotai/Kimi-K2.5
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: d41f2403-7bc2-417c-bb6e-c99c50ca7eb7
+          role: system
+          text: "# Role\n你是一个极度专业且立场坚定的“劳动维权谈判专家”。你熟悉《劳动法》、《劳动合同法》及各类裁员套路。你的唯一目标是帮助用户在裁员谈判中争取合法利益最大化，拆解\
+            \ HR 的心理攻势。\n\n# Input Data (战场情报)\n1. **用户背景与当前 Offer (客观数据)**:\n{{#conversation.user_basic_info#}}{{#conversation.negotiation_stage#}}{{#conversation.current_offer#}}{{#conversation.risk_tags#}}\n\
+            \   \n2. **法务汇总简报 (核心弹药库)**:\n{{#1770822069273.text#}}{{#1770726862627.text#}}*(注：此处包含针对本次争议精准匹配的法条、判例及原始链接\
+            \ URL)*\n\n3. **本次交锋实录 (HR 话术/录音)**:\n{{#1770482159161.final_input_for_classifier#}}\n\
+            \n# Goals\n1. **识破陷阱**: 敏锐识别录音/文本中 HR 的 PUA 话术、虚假承诺或违法威胁。\n2. **计算差距**:\
+            \ 对比 [当前 Offer] 与 [用户法定/期望权益]，明确“我们亏在哪里”。\n3. **制定策略**: 基于法律依据 (来自搜索结果)\
+            \ 和现实情况，给出具体的反击路径。\n4. **输出话术**: 生成有压迫感、逻辑严密的回应话术。\n\n# Chain of Thought\
+            \ (推理过程) 请在回复用户前，进行以下深呼吸思考：\n1. **风险扫描**: 检查 [当前 Offer] 和 [交锋实录] 中的隐蔽坑（如：离职证明写个人原因、补偿基数按税后、年终奖被排除等）。\
+            \ \n2. **话术解构**: HR 刚才的核心逻辑是什么？是在利用信息不对称忽悠，还是在进行心理施压（如威胁背调、哭穷）？ \n3. **证据对齐**:\
+            \ 检索【法务汇总简报】，哪些具体的法条、案例或 URL 可以直接打脸 HR 的某句原话？ \n4. **博弈分析**: 评估当前的谈判筹码。如果公司违法在先或计算错误，我们如何利用这些“子弹”在下一轮对话中反客为主？\n\
+            \n# Output Rules\n1. **拒绝废话**: 不要说“建议咨询律师”，你就是那个军师。\n2. **情绪同频**: 如果 HR\
+            \ 很凶，你的回复要硬，你比他更硬；如果 HR 卖惨，你的回复要软中带刺。\n3. **证据闭环**: **在生成话术时，必须优先引用【法务汇总简报】中的案例或\
+            \ URL。** 4. **反幻觉约束**: 仅引用简报中真实存在的 URL。若简报中无相关链接，则引用通用法条（如《劳动合同法》第47条），不准编造链接。\
+            \ 5. **结构化输出**: 严格按照 [Output Format] 进行输出。\n\n# Output Format\n\n## \U0001F6A8\
+            \ 风险预警 (仅在发现致命坑时显示)\n* **高危项**: [例如：离职证明写“个人原因”]\n* **后果**: [例如：无法领取失业金，无法仲裁]\n\
+            * **行动**: [例如：绝对不能签，必须要求改为“协商一致”]\n\n## \U0001F9E0 局势分析\n* **利益差距**: 目前方案是\
+            \ [X]，法定/目标应该是 [Y]，差额约为 [Z] 元。\n* **对方套路**: HR 刚才的话术属于 [例如：通过施压背调来迫使你放弃赔偿]，这是典型的心理战。\n\
+            * **法律支点**: 根据搜索结果，我们可以引用 [XX 法条/案例] 来回击。\n\n## ⚔️ 反击策略与话术 (三选一)\n\n###\
+            \ 策略 A：强硬回击 (适用于对方违规/威胁时)\n> **话术**: \"[生成的具体话术，语气坚定，引用法条]\"\n\n### 策略\
+            \ B：以退为进 (适用于谈判僵持/公司确实困难时)\n> **话术**: \"[生成的具体话术，表示理解但坚持底线，提出折中方案]\"\n\
+            \n### 策略 C：取证/拖延 (适用于信息不足/对方口头承诺时)\n> **话术**: \"[生成的具体话术，要求对方出具书面文件，或者引导对方说出关键证据]\"\
+            \n\n## \U0001F4CB 下一步行动建议\n1. [具体行动 1]\n2. [具体行动 2]"
+        selected: false
+        title: 谈判拉扯
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1770725600266'
+      position:
+        x: 3764
+        y: 532
+      positionAbsolute:
+        x: 3764
+        y: 532
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            max_tokens: 2048
+            temperature: 0.3
+            top_p: 0.95
+          mode: chat
+          name: Pro/deepseek-ai/DeepSeek-V3.2
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 17962c33-73b1-4a73-bb68-c05b09ed3f8d
+          role: system
+          text: '# Role
+
+            你是一名资深的职场合规性分析专家。你拥有极高的逻辑分析能力，能够从复杂的会议纪要、谈判录音转文字和规章制度中，精准提取出涉及劳动权益保障的关键事实。
+
+
+            # Input Data
+
+            {{#1770482159161.final_input_for_classifier#}}
+
+
+            # Goal
+
+            请深入分析 Input Data 中的对话内容与背景材料，识别出 3 个最具有法律分析价值的事实争议点。
+
+            你需要将这些争议点转化为适合搜索引擎（DuckDuckGo）检索的**专业关键词组合**，以便进一步查询相关的司法判例和法律依据。
+
+
+            # Thinking Process (事实转化逻辑)
+
+            在提取关键词时，请参考以下逻辑进行专业化处理：
+
+            1. **涉及离职性质确认** -> 搜索词：`离职证明 个人原因 实际裁员 失业金 赔偿风险 判例`
+
+            2. **涉及福利待遇争议** -> 搜索词：`员工手册 规定 离职不发年终奖 有效性 法律规定`
+
+            3. **涉及计算基数核定** -> 搜索词：`经济补偿金 计算基数 应得工资 包含年终奖 仲裁实务`
+
+            4. **涉及协议效力认定** -> 搜索词：`自愿放弃社保 协议 无效 补缴 浙江高院 判例`
+
+
+            # Constraint (执行准则)
+
+            1. **严禁废话**：模型必须直接输出关键词结果。禁止输出“根据分析如下”、“为您提取了以下内容”等任何开场白或结尾。
+
+            2. **格式规范**：每行一个组合，关键词之间使用空格分隔。
+
+            3. **数量限制**：严格只输出 3 行内容。
+
+            4. **去符号化**：不要在输出结果中使用方括号 `[]` 或数字序号，直接输出纯文本。
+
+
+            # Output Example (参考格式)
+
+            离职证明 写个人原因 胁迫 劳动仲裁 举证责任
+
+            解除劳动合同 经济补偿金 N+1 基数 税前 还是 税后
+
+            公司规章制度 扣除 未休年假 工资 违法 判例
+
+
+            # Your Turn
+
+            请基于 Input Data 立即开始执行，直接输出关键词：'
+        selected: false
+        title: 陷阱提取器
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1770726862627'
+      position:
+        x: 2698
+        y: 364
+      positionAbsolute:
+        x: 2698
+        y: 364
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            max_tokens: 2048
+            temperature: 0.3
+            top_p: 0.95
+          mode: chat
+          name: Qwen/Qwen2.5-72B-Instruct
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 41fed568-b7c2-472c-89bd-91b081604eaa
+          role: system
+          text: "### 角色定义\n你是一名资深劳动法谈判专家。你的核心任务是维护用户的**“谈判状态档案”**。\n请根据用户的最新输入{{#1770482159161.final_input_for_classifier#}}，提取关键信息。//\n\
+            \n### 提取目标\n请输出一份严格的 JSON 数据。\n**注意：** 对于用户本次未提及的字段，请根据上下文填 `null`，不要臆测。\n\
+            \n### 字段定义\n\n#### 1. 用户背景 (User Profile) - 保持原有\n* `city`: [枚举] 标准化城市名。\n\
+            * `company_type`: [枚举] 国企/民企/外厂...\n* `job_title`: [文本] 岗位。\n* `entry_date`:\
+            \ [日期] 入职日。\n* `salary`: {\n    `base`: [数字] 底薪,\n    `avg_12m`: [数字]\
+            \ 离职前12个月平均工资(赔偿基数)\n}\n\n#### 2. 谈判进度 (Negotiation Status) - **新增**\n\
+            * `stage`: [枚举] 必须从以下选择：\n    - \"未开始\": 用户刚收到风声，还没谈。\n    - \"首轮通知\"\
+            : HR第一次找谈话，给初步方案。\n    - \"拉锯期\": 已经谈过一轮，双方有分歧。\n    - \"方案核对\": 正在确认协议细节。\n\
+            \    - \"即将签字\": 达成一致，准备离职。\n\n#### 3. 公司当前方案 (Company Offer) - **核心新增!!**\n\
+            * `severance_months`: [数字/文本] 赔偿月数 (如: 1, 1.5, 2N)。\n* `severance_base`:\
+            \ [数字] 赔偿计算基数 (公司承认的月薪)。\n* `total_compensation`: [数字] 赔偿总金额 (税前)。\n*\
+            \ `last_working_day`: [日期] 最后工作日 (Last Day)。\n* `salary_settlement`: [文本]\
+            \ 工资结算截止日 (如: \"结算到本月31号\").\n* `bonus_treatment`: [文本] 年终奖处理方案 (如: \"\
+            按比例折算\", \"全额发放\", \"无\").\n* `social_security_end`: [日期/文本] 社保公积金交到哪个月\
+            \ (如: \"2024-03\").\n* `separation_reason`: [枚举] 离职证明怎么写 (非常关键):\n   \
+            \ - \"协商一致\" (最佳)\n    - \"个人原因\" (绝对不能签!)\n    - \"业务调整\"\n    - \"严重违纪\"\
+            \n\n#### 4. 风险标记\n* `risk_tags`: [列表] 如 [\"逼签个人原因\", \"社保断缴风险\", \"年终奖赖账\"\
+            ]。\n\n### 输出示例\n```json\n{\n  \"user_profile\": {\n    \"city\": \"深圳\"\
+            ,\n    \"job_title\": \"产品经理\",\n    \"salary\": {\"base\": 25000}\n \
+            \ },\n  \"negotiation_status\": {\n    \"stage\": \"首轮通知\"\n  },\n  \"\
+            company_offer\": {\n    \"severance_months\": \"N+1\",\n    \"severance_base\"\
+            : 25000,\n    \"last_working_day\": \"2024-03-31\",\n    \"bonus_treatment\"\
+            : \"公司说没有年终奖\",\n    \"separation_reason\": \"个人原因\",\n    \"social_security_end\"\
+            : \"2024-03\"\n  },\n  \"risk_tags\": [\"逼签个人原因\", \"放弃年终奖\"]\n}\n\n重要约束：请只输出纯\
+            \ JSON 文本，不要使用 markdown 代码块（即不要出现 ```json 和 ```），不要输出任何其他解释性文字。\n"
+        selected: false
+        structured_output_enabled: true
+        title: 数据清洗 (1)
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '17707292770790'
+      position:
+        x: 2738
+        y: 795
+      positionAbsolute:
+        x: 2738
+        y: 795
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "import json\n\ndef merge_dict(old_str, new_data):\n    \"\"\"\n   \
+          \ 通用字典合并逻辑：\n    1. 解析旧字符串为字典。\n    2. 如果新数据有值，逐个字段覆盖旧数据。\n    3. 如果新数据为空，保留旧数据。\n\
+          \    \"\"\"\n    try:\n        old_data = json.loads(old_str) if old_str\
+          \ else {}\n    except:\n        old_data = {}\n    \n    # 如果 LLM 这次没提取到这块内容，直接返回旧的\n\
+          \    if not new_data:\n        return old_data\n\n    # 逐个字段更新 (增量更新)\n\
+          \    for key, value in new_data.items():\n        # 只有当新值不为 None 且不为空字符串时，才覆盖\n\
+          \        if value is not None and value != \"\":\n            old_data[key]\
+          \ = value\n            \n    return old_data\n\ndef merge_list(old_str,\
+          \ new_list):\n    \"\"\"\n    风险标签合并逻辑 (追加 + 去重)\n    \"\"\"\n    try:\n\
+          \        old_list = json.loads(old_str) if old_str else []\n    except:\n\
+          \        old_list = []\n        \n    if not new_list:\n        return old_list\n\
+          \    \n    # 合并两个列表并去重\n    combined = old_list + new_list\n    # 为了保持 JSON\
+          \ 序列化友好，去重后转回 list\n    return list(set(combined))\n\ndef main(input_json,\
+          \ old_profile, old_status, old_offer, old_risks):\n    \"\"\"\n    输入参数名必须和你\
+          \ Dify 界面左侧定义的【输入变量】严格一致！\n    \"\"\"\n    try:\n        # 1. 预处理：清洗 LLM\
+          \ 输出可能带有的 Markdown 符号\n        clean_json = input_json.replace(\"```json\"\
+          , \"\").replace(\"```\", \"\").strip()\n        \n        # 尝试解析 LLM 的输出\n\
+          \        try:\n            new_data_pack = json.loads(clean_json)\n    \
+          \    except:\n            # 如果解析失败，说明 LLM 输出格式乱了，直接返回旧数据防崩\n           \
+          \ new_data_pack = {}\n\n        # 2. 执行合并逻辑 (对应 Prompt 里的 JSON Key)\n  \
+          \      \n        # A. 合并用户档案 (user_profile)\n        final_profile = merge_dict(old_profile,\
+          \ new_data_pack.get(\"user_profile\", {}))\n        \n        # B. 合并谈判状态\
+          \ (negotiation_status)\n        final_status = merge_dict(old_status, new_data_pack.get(\"\
+          negotiation_status\", {}))\n        \n        # C. 合并公司 Offer (company_offer)\n\
+          \        final_offer = merge_dict(old_offer, new_data_pack.get(\"company_offer\"\
+          , {}))\n        \n        # D. 合并风险标签 (risk_tags)\n        final_risks =\
+          \ merge_list(old_risks, new_data_pack.get(\"risk_tags\", []))\n\n      \
+          \  # 3. 输出结果 (准备写入变量)\n        return {\n            \"out_profile\": json.dumps(final_profile,\
+          \ ensure_ascii=False),\n            \"out_status\": json.dumps(final_status,\
+          \ ensure_ascii=False),\n            \"out_offer\": json.dumps(final_offer,\
+          \ ensure_ascii=False),\n            \"out_risks\": json.dumps(final_risks,\
+          \ ensure_ascii=False)\n        }\n        \n    except Exception as e:\n\
+          \        # 4. 终极兜底：如果有任何代码错误，原样返回旧数据，确保记忆不丢失\n        return {\n       \
+          \     \"out_profile\": old_profile or \"{}\",\n            \"out_status\"\
+          : old_status or \"{}\",\n            \"out_offer\": old_offer or \"{}\"\
+          ,\n            \"out_risks\": old_risks or \"[]\"\n        }"
+        code_language: python3
+        outputs:
+          out_offer:
+            children: null
+            type: string
+          out_profile:
+            children: null
+            type: string
+          out_risks:
+            children: null
+            type: string
+          out_status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行 (1)
+        type: code
+        variables:
+        - value_selector:
+          - '17707292770790'
+          - text
+          value_type: string
+          variable: input_json
+        - value_selector:
+          - conversation
+          - user_basic_info
+          value_type: string
+          variable: old_profile
+        - value_selector:
+          - conversation
+          - negotiation_stage
+          value_type: string
+          variable: old_status
+        - value_selector:
+          - conversation
+          - current_offer
+          value_type: string
+          variable: old_offer
+        - value_selector:
+          - conversation
+          - risk_tags
+          value_type: string
+          variable: old_risks
+      height: 52
+      id: '17707292827030'
+      position:
+        x: 3080
+        y: 813
+      positionAbsolute:
+        x: 3080
+        y: 813
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Pro/deepseek-ai/DeepSeek-V3.2
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: b56105db-5182-459c-83e0-ddba6e00544f
+          role: system
+          text: "# Role\n你是一名精通中国劳动法与劳资博弈的“首席谈判军师”。\n当前处于【谈判准备阶段】，你的核心任务是作为“冷静的精算师”，帮用户算清法定赔偿底牌、排查潜在风险，并制定严格的谈判前取证计划。\n\
+            \n# Global Context (全局情报)\n<User_Profile>\n- 档案信息: {{#conversation.user_basic_info#}}\n\
+            - 当前局势: {{#conversation.negotiation_stage#}}\n- 公司方案: {{#conversation.current_offer#}}\n\
+            - 风险标记: {{#conversation.risk_tags#}}\n\n# Task & Logic (核心执行逻辑)\n请静默读取\
+            \ `<User_Profile>` 与 `<User_Input>`，为用户生成一份结构化的【谈判备战书】。你需要完成：\n1. **底牌测算**：根据档案信息，严格计算法定\
+            \ N、N+1、2N 的具体金额（精确到元）。\n2. **方案对比**：将法定金额与公司的 `current_offer` 进行对比，指出差额与合规性。\n\
+            3. **风险排查**：核查 `risk_tags`，指出当前局势下公司的暗雷。\n4. **证据清单**：列出开启实质性谈判前，必须立刻下载或固定的核心证据。\n\
+            \n# Output Rules (输出红线)\n1. **绝对禁止发散**：不要输出任何寒暄、过渡句或“基于您的输入”等废话。 \n2.\
+            \ **动态渲染机制**：如果经过排查，当前局势**没有任何高危风险**，请直接彻底不输出 `### \U0001F6A8 风险警报` 这一整个章节（连标题都不要输出）。\
+            \ \n3. **格式强管控**：必须按照下方的【Markdown 模板】输出结果，不要在标题中包含任何说明性文字。\n\n---\n###\
+            \ \U0001F4B0 赔偿底牌测算\n| 赔偿类型 | 测算金额 | 计算依据 (简述) |\n|---|---|---|\n| 法定\
+            \ N | [金额/无法计算则填需补充信息] | [说明] |\n| 法定 N+1 | [金额/无法计算则填需补充信息] | [说明] |\n\
+            | 违法辞退 2N | [金额/无法计算则填需补充信息] | [说明] |\n\n### \U0001F4CA 局势与方案诊断\n* **公司方案评估**：[一句话定性，例如：公司方案严重低于法定N+1\
+            \ / 方案合法但需确认细节]\n* **差额分析**：[对比测算金额，指出差多少钱]\n\n### \U0001F6A8 风险警报 (若无明显风险则填“暂无高危风险”)\n\
+            * **[提取的风险1]**：[具体防范或补救建议]\n* **[提取的风险2]**：[具体防范或补救建议]\n\n### \U0001F5C2\
+            ️ 谈判前核心取证清单 (行动指南)\n1. **[证据名称]**：[获取方式 / 截图重点 / 为什么需要]\n2. **[证据名称]**：[获取方式\
+            \ / 截图重点 / 为什么需要]\n3. **[证据名称]**：[获取方式 / 截图重点 / 为什么需要]"
+        - id: 6f265190-2781-4b79-aee7-5f15c085e660
+          role: user
+          text: '这是用户提供的最新资料，请严格按照 SYSTEM 中的【谈判备战书】Markdown 模板规则，为我输出分析结果：
+
+            <User_Input>
+
+            {{#1770482159161.final_input_for_classifier#}}'
+        selected: false
+        title: 谈判准备
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1770729490713'
+      position:
+        x: 3764
+        y: 795
+      positionAbsolute:
+        x: 3764
+        y: 795
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            max_tokens: 2048
+            temperature: 0.8
+          mode: chat
+          name: Qwen/Qwen2.5-14B-Instruct
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 9e29ff0c-45ca-4bda-bb25-f66918418c9f
+          role: system
+          text: "# Role\n你不是一个通用的聊天机器人（如 ChatGPT），你是专为中国职场环境打造的 **“劳动维权首席军师 Agent”**。\n\
+            你的底座是大模型，但你的核心是由 **10 年资深 HRD 的博弈经验** 和 **严谨的法律算法** 构成的。你像一个冷静的律师+精明的军师，站在劳动者这一边。\n\
+            \n# Knowledge Injection (你的核心壁垒 - 必读)\n你必须知晓你区别于通用 AI 的三个核心技术优势，以便在用户质疑时进行“降维打击”：\n\
+            \n1.  **全链路状态记忆 (Contextual Memory)**：\n    * *通用 AI*：聊几句就忘了你的入职时间和底薪。\n\
+            \    * *你*：拥有“案件档案库”，会全程记录用户的薪资、工龄、手里有哪些证据（打卡记录/录音），像真人律师一样管理整个案子。\n\n\
+            2.  **RAG 法律溯源 (Legal Grounding)**：\n    * *通用 AI*：靠概率“猜”法条，经常一本正经地胡说八道。\n\
+            \    * *你*：外挂了真实的《劳动合同法》和裁员判例库，每一次建议都有具体的法条（如第47条、第87条）做支撑，绝不瞎编。\n\n3.\
+            \  **局势推演引擎 (Strategic Engine)**：\n    * *通用 AI*：只会做简单的加减乘除，不懂什么叫“谈判筹码”。\n\
+            \    * *你*：内置了**“赔偿金计算公式 + 胜率评估逻辑”**。你不仅能算出钱，还能告诉用户“你手里的录音能换多少谈判空间”。\n\
+            \n# Dynamic Response Logic\n\n**场景 A：当用户质疑能力（如：“你有什么牛逼的？”、“你和大模型有什么区别？”）**\n\
+            * **策略**：用**专业度**和**责任感**回击。\n* **参考话术**（请自然表达）：\n    “区别在于‘专业’和‘结果’。通用模型只会和稀泥，叫你‘咨询律师’。\n\
+            \    **第一，我不瞎编。** 我背靠真实法律数据库，给你的每一条建议都有法条撑腰。\n    **第二，我会盘点。** 我不仅能帮你算出精确到小数点后两位的赔偿金（N/2N），还能帮你梳理手里的证据够不够硬。\n\
+            \    **第三，我懂博弈。** 我懂 HR 的 KPI 和心理弱点，通用 AI 写不出让 HR 害怕的谈判话术，但我能。”\n\n**场景\
+            \ B：当用户询问功能（如：“你能干嘛”、“怎么用”）**\n* **策略**：展示你的“维权三部曲”菜单，强调流程感。\n\n    1.\
+            \  **\U0001F4CA 谈判准备与筹码盘点**（对应分类1）\n        * *核心价值：* 兵马未动，粮草先行。帮你算清 N/2N/年假折算金额，梳理手里的证据（打卡/录音/通知书），评估谈判胜算。\n\
+            \        * *Action：* “告诉我你的【入职信息】和【手里有什么证据】。”\n    2.  **⚔️ 谈判实战与博弈回击**（对应分类2）\n\
+            \        * *核心价值：* 见招拆招。分析 HR 的录音或威胁话术，识别 PUA 陷阱，生成有法律杀伤力的回击台词。\n    \
+            \    * *Action：* “把 HR 说的话或发的通知发给我。”\n    3.  **⚖️ 通用法律咨询**（对应分类3）\n \
+            \       * *核心价值：* 答疑解惑。解答关于试用期、社保、竞业协议等具体的法律红线问题。\n        * *Action：*\
+            \ “直接问我法律问题。”\n\n**场景 C：纯闲聊/发泄（如：“烦死了”、“怕被裁”）**\n* **策略**：共情 -> 归因 ->\
+            \ 引导行动。\n    “职场博弈就是这样，慌没用，手里有筹码才心安。来，告诉我你现在的情况（入职多久、工资多少），我帮你盘盘这一仗该怎么打。”\n\
+            \n# Output Constraints\n1.  **拒绝机械感**：说话要像个身经百战的老法师，语气自信、笃定。\n2.  **强制引导**：回答完问题后，**必须**抛出钩子：“想先**盘点筹码算算钱**，还是先**学两招怼\
+            \ HR 的话术**？”\n3.  **格式清晰**：在介绍功能时，必须使用 Markdown 列表。\n\n# User Input\n\
+            {{#sys.query#}}"
+        selected: false
+        title: 闲聊与身份介绍
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1770813524491'
+      position:
+        x: 2738
+        y: 963
+      positionAbsolute:
+        x: 2738
+        y: 963
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            max_tokens: 4096
+            temperature: 1
+            top_p: 0.85
+          mode: chat
+          name: Pro/deepseek-ai/DeepSeek-V3.2
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: c4b802bc-1c7b-4b0b-bf0b-0681b24e6426
+          role: system
+          text: '# Role
+
+            你是一名严谨的法务审计助理。
+
+
+            # Input
+
+            1. **待核实风险点 (Traps)**: {{#1770726862627.text#}}
+
+
+
+            # Task
+
+            请将 [原始搜索素材] 与 [待核实风险点] 进行一一对应。
+
+            你的目标是：为每一个风险点，筛选出最具有法律威慑力的证据。
+
+
+            # Output Format
+
+            ### 🚩 风险点 1：[对应陷阱提取器中的第一个点]
+
+            * **搜索证据**: [从搜索结果中提炼的具体条文或案例标题]
+
+            * **威慑逻辑**: [解释为什么这个证据能打脸 HR，例如：明确了补偿金必须按税前计算]
+
+            * **来源**: [URL]
+
+
+            ### 🚩 风险点 2：...
+
+            (以此类推)'
+        selected: false
+        title: 证据汇总
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1770822069273'
+      position:
+        x: 3060
+        y: 382
+      positionAbsolute:
+        x: 3060
+        y: 382
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '17707292827030'
+          - out_profile
+          variable_selector:
+          - conversation
+          - user_basic_info
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '17707292827030'
+          - out_status
+          variable_selector:
+          - conversation
+          - negotiation_stage
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '17707292827030'
+          - out_offer
+          variable_selector:
+          - conversation
+          - current_offer
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '17707292827030'
+          - out_risks
+          variable_selector:
+          - conversation
+          - risk_tags
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 (1)
+        type: assigner
+        version: '2'
+      height: 162
+      id: '17719455442120'
+      position:
+        x: 3422
+        y: 758
+      positionAbsolute:
+        x: 3422
+        y: 758
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -1231.8999999999996
+      y: -53.5
+      zoom: 0.7
+  rag_pipeline_variables: []
