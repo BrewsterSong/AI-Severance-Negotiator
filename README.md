@@ -1,4 +1,6 @@
 # ⚖️ AI 裁员谈判专家 (AI Severance Negotiator)
+<img width="4096" height="2128" alt="AI裁员谈判专家 (1)" src="https://github.com/user-attachments/assets/b77b278a-2a55-4f3b-9058-7bd59cbcf054" />
+
 在算法面前，每一个职场人都值得拥有一面平等的盾牌。
 
 ## 🌟 1. 这个 Agent 能干嘛？
